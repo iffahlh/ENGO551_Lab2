@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ book_result[0][1] }}
+{% endblock %}
+
+{% block body %}
+  <br>
+  {% if search %}
+      <h2>ISBN: {{ message }}</h2>
+        <div class="hr-line-dashed"></div>
+        <p style="margin-bottom:0">Title: {{ book_result[0][1] }}</p>
+        <p style="margin-bottom:0">Author: {{ book_result[0][2] }}</p>
+        <p>Year: {{ book_result[0][3] }}</p>
+      <br>
+      <h4>Reviews</h4>
+      <div style="color: orange; font-size: 24px">
+        {% for i in range(5) %}
+        {% if (value-i) >= 1 %}
+          <span class="fa fa-star checked"></span>
+        {% elif (value-i) > 0 and (value-i) < 1 %}
+          <span class="fa fa-star-half-full"></i>
+        {% else %}
+          <span class="fa fa-star-o"></span>
+        {% endif %}
+      {% endfor %}
+      {{ value }} on Google Books
+      </div>
+      <form method="POST">
+        <br>
+        <h6> Leave a review </h6>
+        <p class='text-danger'>{{ submitted }}</p>
+        <div class="form-group">
+          Your Rating:  <input type="number" name="rating" min="1" max="5" default="0" required>
+          <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+      <div class="hr-line-dashed"></div>   
+      <h6>{{ reviews }}</h6>
+      {% for book_review in book_reviews %}
+        <div class="search-result">
+          <h6 style="margin-bottom: 0">{{ book_review[0] }}</h6>
+          <div style="color: orange">
+            {% for i in range(5) %}
+              {% if (book_review[1]-i) >= 1 %}
+                <span class="fa fa-star checked"></span>
+              {% elif (book_review[1]-i) > 0 and (book_review[1]-i) < 1 %}
+                <span class="fa fa-star-half-full"></i>
+              {% else %}
+                <span class="fa fa-star-o"></span>
+              {% endif %}
+            {% endfor %}
+            {{ book_review[1] }} 
+            </div>
+          <br>
+          <small style="margin-bottom: 0"> {{book_review[2] }} </small>
+          <br>
+        </div>
+      <div class="hr-line-dashed"></div>
+      {% endfor %}
+      <br>
+      {% if not search %}
+      <h2>You are not logged in!</h2>
+      <h5>please login first</h5>
+      {% endif %}
+  {% endif %}
+{% endblock %}

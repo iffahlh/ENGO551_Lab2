@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Home - Search</title>
+{% endblock %}
+
+{% block body %}
+  <div class="container bootstrap snippets bootdey">
+    <br>
+    <h2>Search for Book Reviews</h2>
+    {% if search %}
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <form action="{{ url_for('search') }}" method="post">
+              <div class="input-group">
+                <div class="form-outline w-75" data-mdb-input-init>
+                  <input class="form-control" type="search" placeholder="Title, ISBN, or Author" name="query">
+                </div>
+                <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                  <i class="fas fa-search" style='font-size:24px'></i>
+                </button>
+              </div>  
+            </form>
+            <br><br>
+            <h3>
+              Results for: <span class="text-navy">"{{ query }}"</span>
+            </h3>
+            <div class="hr-line-dashed"></div>
+            {% if not results %}
+              <h5> No results <h5>
+            {% endif %}
+            {% if results %}
+              {% for result in results %}
+                <div class="search-result">
+                  <h5 style="margin-bottom: 0"><a href=/result/{{ result[0] }}>{{ result[1] }}</a></h5>
+                  <small> ISBN: {{ result[0] }}</small>
+                  <br>
+                  <small style="margin-bottom: 0"> {{ result[2] }} </small>
+                  <br>
+                  <small> {{ result[3] }} </small> 
+                </div>
+              <div class="hr-line-dashed"></div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  
+  {% if not search %}
+    <div class="form-outline w-75" data-mdb-input-init>
+      <input class="form-control" type="text" placeholder="Search by Title, ISBN, or Author" aria-label="search" disabled>
+    </div>
+    
+    <a href={{ url_for('login') }}>Log in</a> or <a href={{ url_for('register') }}>Create an account</a> to access the database
+  {% endif %}            
+            
+  
+{% endblock %}
+
+
+

@@ -1,0 +1,42 @@
+i{% extends "layout.html" %}
+  
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4" style="margin-top:60px">
+            <h5>Create an account</h5>
+            <p class="text-danger">  {{ message }}  </p>
+            <form action="{{ url_for('register') }}" method="POST">
+                <!-- Name input -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <!-- Username input -->
+                <div class="form-group">
+                    <label for="username">Email or Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <!-- Password input -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+        
+                <!-- Submit button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <img src="https://i.ebayimg.com/images/g/4rUAAOSw~pNgRvH0/s-l1600.jpg" style="height:150%; width:100%; object-fit:none">
+        </div>
+    </div>
+    
+{% endblock %}
